@@ -17,7 +17,7 @@ const { data: postsData, refresh: refreshPosts } = await useAsyncData(`user-post
 
 const userInfo = computed(() => {
   const posts = postsData.value
-  if (posts?.length) {
+  if (posts?.length && posts[0]) {
     const u = posts[0].user as unknown as { _id: string; name: string; photo: string }
     return u
   }
