@@ -1,16 +1,14 @@
-import { createConfigForNuxt } from '@nuxt/eslint-config/flat'
+// @ts-check
+import withNuxt from './.nuxt/eslint.config.mjs'
 
-export default createConfigForNuxt({
-  features: {
-    tooling: true,
-  },
-}).append({
+export default withNuxt({
   rules: {
     // 風格
     'semi': ['error', 'never'],
     'quotes': ['error', 'single'],
     'comma-dangle': ['error', 'always-multiline'],
     'indent': ['error', 2],
+    'max-len': ['error', { code: 150 }],
 
     // Vue
     'vue/multi-word-component-names': 'off',
