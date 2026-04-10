@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import type { PostsResponse, FollowingResponse } from '~/types/api'
+import type { PostsResponse, FollowingResponse, User } from '~/types/api'
 
 const route = useRoute()
 const { apiFetch } = useApi()
 const authStore = useAuthStore()
 
 const userId = route.params.id as string
+const emptyFollowingResponse: FollowingResponse = {
+  status: 'success',
+  data: {
+    following: [],
+  },
+}
 
 const { data: postsData, refresh: refreshPosts } = await useAsyncData(`user-posts-${userId}`, async () => {
   const res = await apiFetch<PostsResponse>('/posts/')
@@ -15,22 +21,24 @@ const { data: postsData, refresh: refreshPosts } = await useAsyncData(`user-post
   }) || []
 })
 
-const userInfo = computed(() => {
+const userInfo = computed<Pick<User, '_id' | 'name' | 'photo'> | null>(() => {
   const posts = postsData.value
   if (posts?.length && posts[0]) {
-    const u = posts[0].user as unknown as { _id: string; name: string; photo: string }
+    const u = posts[0].user as Pick<User, '_id' | 'name' | 'photo'>
     return u
   }
   return null
 })
 
-const { data: followingData, refresh: refreshFollowing } = await useAsyncData('my-following', () => {
-  if (!authStore.isLoggedIn) return null
-  return apiFetch<FollowingResponse>('/users/following')
-})
+const { data: followingData, refresh: refreshFollowing } = await useAsyncData<FollowingResponse>(
+  'my-following',
+  () => authStore.isLoggedIn
+    ? apiFetch<FollowingResponse>('/users/following')
+    : Promise.resolve(emptyFollowingResponse),
+)
 
 const isFollowing = computed(() => {
-  const list = followingData.value?.data?.following || []
+  const list = followingData.value?.data.following ?? []
   return list.some((f) => f.user._id === userId)
 })
 
@@ -78,7 +86,7 @@ const handleDeleteComment = async (commentId: string) => {
       <div class="flex items-center gap-4">
         <img
           :src="userInfo.photo || '/default-avatar.svg'"
-          class="h-16 w-16 rounded-full border-2 border-primary object-cover"
+          class="size-16 rounded-full border-2 border-primary object-cover"
           alt="avatar"
         />
         <div class="flex-1">

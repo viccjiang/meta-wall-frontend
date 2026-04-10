@@ -35,7 +35,7 @@ const handleLogout = () => {
             <button class="flex items-center gap-2">
               <img
                 :src="authStore.user?.photo || '/default-avatar.svg'"
-                class="h-8 w-8 rounded-full border-2 border-primary object-cover"
+                class="size-8 rounded-full border-2 border-primary object-cover"
                 alt="avatar"
               />
               <span class="text-sm font-medium text-dark">{{ authStore.user?.name }}</span>
@@ -82,7 +82,7 @@ const handleLogout = () => {
     </div>
 
     <!-- Mobile Bottom Nav -->
-    <nav class="fixed bottom-0 left-0 right-0 z-50 border-t-2 border-dark bg-white lg:hidden">
+    <nav class="fixed inset-x-0 bottom-0 z-50 border-t-2 border-dark bg-white lg:hidden">
       <div class="flex justify-around py-2">
         <NuxtLink
           v-for="item in navItems"

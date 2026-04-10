@@ -100,7 +100,7 @@ const handleUpdatePassword = async () => {
           <div class="flex justify-center">
             <img
               :src="profileForm.photo || '/default-avatar.svg'"
-              class="h-20 w-20 rounded-full border-2 border-primary object-cover"
+              class="size-20 rounded-full border-2 border-primary object-cover"
               alt="avatar"
             />
           </div>

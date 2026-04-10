@@ -30,7 +30,7 @@ const handleUnlike = async (postId: string) => {
         <NuxtLink :to="`/user/${post.user._id}`">
           <img
             :src="post.user.photo || '/default-avatar.svg'"
-            class="h-10 w-10 rounded-full border-2 border-primary object-cover"
+            class="size-10 rounded-full border-2 border-primary object-cover"
             alt="avatar"
           />
         </NuxtLink>

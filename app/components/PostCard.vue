@@ -86,7 +86,7 @@ const handleComment = () => {
       <NuxtLink :to="`/user/${postUser._id}`">
         <img
           :src="postUser.photo || '/default-avatar.svg'"
-          class="h-10 w-10 rounded-full border-2 border-primary object-cover"
+          class="size-10 rounded-full border-2 border-primary object-cover"
           alt="avatar"
         />
       </NuxtLink>
@@ -95,7 +95,7 @@ const handleComment = () => {
           {{ postUser.name }}
         </NuxtLink>
         <p class="text-xs text-gray-border">
-          {{ timeAgo(post.createdAt, post._id) }}
+          {{ timeAgo(post.createdAt || '', post._id) }}
         </p>
       </div>
       <button
@@ -151,7 +151,7 @@ const handleComment = () => {
         <div v-for="c in post.comments" :key="c._id" class="flex gap-2">
           <img
             :src="c.user.photo || '/default-avatar.svg'"
-            class="h-7 w-7 shrink-0 rounded-full border border-primary object-cover"
+            class="size-7 shrink-0 rounded-full border border-primary object-cover"
             alt="avatar"
           />
           <div class="flex-1 rounded-lg bg-accent p-2">

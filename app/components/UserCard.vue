@@ -23,7 +23,7 @@ const isSelf = computed(() => props.user._id === authStore.user?._id)
     <NuxtLink :to="`/user/${user._id}`">
       <img
         :src="user.photo || '/default-avatar.svg'"
-        class="h-10 w-10 rounded-full border-2 border-primary object-cover"
+        class="size-10 rounded-full border-2 border-primary object-cover"
         alt="avatar"
       />
     </NuxtLink>

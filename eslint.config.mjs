@@ -1,7 +1,13 @@
 // @ts-check
 import withNuxt from './.nuxt/eslint.config.mjs'
+import tailwind from 'eslint-plugin-tailwindcss'
 
 export default withNuxt({
+  settings: {
+    tailwindcss: {
+      config: 'tailwind.config.ts',
+    },
+  },
   rules: {
     // 風格
     'semi': ['error', 'never'],
@@ -27,4 +33,4 @@ export default withNuxt({
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     '@typescript-eslint/no-explicit-any': 'warn',
   },
-})
+}, ...tailwind.configs['flat/recommended'])

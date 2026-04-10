@@ -6,8 +6,11 @@ MetaWall 社群平台前端，使用 Nuxt 4 建構，串接 MetaWall RESTful API
 
 - **Nuxt 4** - Vue 全端框架
 - **Vue 3** - 前端框架
+- **TypeScript** - 型別檢查
 - **Pinia** - 狀態管理
 - **Tailwind CSS** - 樣式框架
+- **ESLint 9** - 程式碼檢查
+- **eslint-plugin-tailwindcss** - Tailwind class 規則檢查
 - **Nuxt Icon** - 圖示元件
 - **Nuxt Image** - 圖片最佳化
 - **Google Fonts** - Noto Sans TC / Paytone One
@@ -48,12 +51,28 @@ npm install
 # 啟動開發伺服器 (http://localhost:3000)
 npm run dev
 
+# 執行 ESLint
+npm run lint
+
+# 自動修正常見 ESLint 問題
+npm run lint:fix
+
+# 執行 Nuxt / Vue TypeScript 型別檢查
+npx nuxi typecheck
+
 # 建構正式版本
 npm run build
 
 # 預覽正式版本
 npm run preview
 ```
+
+## 開發檢查
+
+- ESLint 採用 Nuxt flat config，設定檔位於 `eslint.config.mjs`
+- 已啟用 `eslint-plugin-tailwindcss`，會檢查 Tailwind class 的 shorthand、衝突與排序相關問題
+- Tailwind ESLint 規則會讀取 `tailwind.config.ts`
+- 型別檢查可使用 `npx nuxi typecheck` 或 `npx vue-tsc --noEmit`
 
 ## 專案結構
 
@@ -82,3 +101,8 @@ app/
 - 使用 Nuxt 內建 `$fetch` 與 `useAsyncData` 進行資料請求
 - `useApi()` composable 封裝 `$fetch.create()`，自動注入 Bearer token 及處理 401 登出
 - API 位址透過環境變數 `NUXT_PUBLIC_API_BASE` 設定，禁止寫死於程式碼中
+
+## 備註
+
+- 使用者頁面路由為 `app/pages/user/[id].vue`
+- 若修改 API 回應結構，請同步更新 `app/types/api.ts`
